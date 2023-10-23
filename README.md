@@ -1,6 +1,6 @@
 # FaAng Toolkit - Profesional Edition
 <img src="https://img.shields.io/badge/Python-3.11-red"></img> <img src="https://img.shields.io/badge/FaAng-BETA-blue"></img> <img src="https://img.shields.io/badge/Kali Linux-2023.1-green"></img> <img src="https://img.shields.io/badge/Ubuntu-20.04-yellow"></img><br>
-
+A UDP attack overwhelms a server with a flood of UDP packets, a TCP attack exhausts server resources, a FiveM attack targets Grand Theft Auto V servers, and Minecraft server attacks disrupt gameplay. In Layer 7, various HTTP request methods are used to exploit web vulnerabilities, Cloudflare bypass attacks aim to evade security mechanisms, and denial of service attacks like Slowloris, large payload, and RUDY disrupt services by overwhelming servers with data. It's important to note that engaging in these activities is illegal and unethical.
 ## Layer 4 Attack Types (Transport Layer)
 1. UDP - UDP Attack
 2. TCP - TCP Attack

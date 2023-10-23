@@ -32,7 +32,7 @@ Installation support for Kali Linux, Ubuntu And Termux
 
 Just enter this command
 ```bash
-curl -s https://raw.githubusercontent.com/DX4GREY/FaAng-Toolkit-Beta/main/curl.sh | bash -s
+curl -s https://raw.githubusercontent.com/DX4GREY/FaAng-Toolkit-Profesional/main/curl.sh | bash -s
 ```
 
 How to uninstall
@@ -55,7 +55,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Special thanks to Dx4 for the original codebase.
 - Contributors to the CloudFlare.
 
-Feel free to contribute or report issues on the [GitHub repository](https://github.com/dx4grey/FaAng-Toolkit-Beta/issues).
+Feel free to contribute or report issues on the [GitHub repository](https://github.com/dx4grey/FaAng-Toolkit-Profesional/issues).
 
 Happy Hacking!
 

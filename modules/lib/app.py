@@ -38,7 +38,7 @@ def write_login_file(username, password):
         f.write(password + "\n")
 def login():
     global loadingg
-    url = "https://monitor.awangsite.repl.co/api/login.php"
+    url = "http://haiehsianhakah.000webhostapp.com/api/login.php"
     saved_username, saved_password = check_login_file()
     sucLog = ""
     if saved_username and saved_password:

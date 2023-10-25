@@ -93,13 +93,15 @@ def spoof(target):
 
 def Countdown(start_time, duration_seconds):
     start_time = float(start_time)
-    while (time.time() - start_time) < duration_seconds:
-        remaining_time = duration_seconds - (time.time() - start_time)
-        time_formatted = "{:.1f}".format(remaining_time)
-        sys.stdout.write("\r"+ Fore.MAGENTA+" [*] "+Fore.RESET+ "Attack Timer => {} second   ".format(time_formatted))
-        sys.stdout.flush()
-        time.sleep(0.1)
-    print(f"\r{Fore.GREEN} [*] {Fore.RESET}Attack Done                    \n")
+    try:
+	    while (time.time() - start_time) < duration_seconds:
+	        remaining_time = duration_seconds - (time.time() - start_time)
+	        time_formatted = "{:.1f}".format(remaining_time)
+	        sys.stdout.write("\r"+ Fore.MAGENTA+" [*] "+Fore.RESET+ "Attack Timer => {} second   ".format(time_formatted))
+	        sys.stdout.flush()
+	        time.sleep(0.1)
+	except KeyboardInterrupt:
+    	print(f"\r{Fore.GREEN} [*] {Fore.RESET}Attack Done                    \n")
 
 def get_public_ip():
     try:

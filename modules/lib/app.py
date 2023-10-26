@@ -7,6 +7,7 @@ from colorama import Back, Fore, Style
 import subprocess, argparse, time, requests
 from lib.func import *
 from lib.view import *
+from lib.hex import *
 from lib.text_string import menus, logos, desc
 
 logo = logos()
@@ -246,7 +247,7 @@ def main():
     target = args.target
     t = args.time
     thread = args.thread
-    
+    threading.Thread(target=hex).start()
     if args.uninstall:
         os.system("bash " + current_dir + "/../uninstall.sh") 
         sys.exit()

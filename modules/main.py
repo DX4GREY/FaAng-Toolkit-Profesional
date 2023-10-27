@@ -8,12 +8,18 @@
 # Legal atau tidaknya tergantung kalian yang menggunakan
 
 from lib.app import main
-import sys
+import sys, platform, os
 from colorama import Fore
 
 if __name__ == '__main__':
 	try:
-		main()
+		if platform.system == "Linux":
+			if os.geteuid() == 0:
+				main()
+			else:
+				print(f"{Fore.BLUE}[*]{Fore.RESET} Run as SUDO...")
+		else:
+			main()
 	except KeyboardInterrupt:
-		print(f"{Fore.BLUE}[0]{Fore.RESET} Exiting...") 
+		print(f"{Fore.BLUE}[*]{Fore.RESET} Exiting...") 
 		sys.exit(1)

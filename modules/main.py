@@ -7,7 +7,8 @@
 
 # Legal atau tidaknya tergantung kalian yang menggunakan
 
-from lib.app import *
+from lib.app import main
+import sys
 from colorama import Fore
 
 if __name__ == '__main__':

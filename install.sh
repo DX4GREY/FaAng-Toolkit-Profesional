@@ -1,3 +1,4 @@
+#!/bin/bash
 pathName="faang"
 mainFile="main.py"
 
@@ -12,7 +13,7 @@ doGnuLinux() {
 	sudo rm -rf /usr/local/bin/$pathName
 	sudo mkdir -p /usr/share/$pathName
 	sudo cp -r -f modules/* /usr/share/$pathName
-	sudo chmod +x /usr/share/$pathName/$mainFile
+	sudo chmod +x /usr/share/$pathName/*
 	sudo ln -s /usr/share/$pathName/$mainFile /usr/local/bin/$pathName
 }
 installRequirements() {

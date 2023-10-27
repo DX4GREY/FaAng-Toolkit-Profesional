@@ -13,13 +13,6 @@ from colorama import Fore
 
 if __name__ == '__main__':
 	try:
-		if platform.system == "GNU/Linux":
-			if os.geteuid() == 0:
-				main()
-			else:
-				print(f"{Fore.BLUE}[*]{Fore.RESET} Run as SUDO...")
-		else:
-			main()
+		main()
 	except KeyboardInterrupt:
-		print(f"\n{Fore.RED}[*]{Fore.RESET} Exiting...") 
-		sys.exit(1)
+		print(f"\n{Fore.RED}[*]{Fore.RESET} Exiting...")

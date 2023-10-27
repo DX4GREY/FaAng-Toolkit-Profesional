@@ -236,10 +236,6 @@ def start():
         start() 
         
 def main():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, 'resources', 'ua.txt') 
-    with open(file_path, 'r') as file:
-        ua = file.read().split("\n") 
     parser = argparse.ArgumentParser(description=desc(), usage="faang [-l4] [method] [target] [thread] [time]\n   or: faang [-l7] [method] [target] [thread] [time]",
                                      prog="faang")
     parser.add_argument("method", type=str, nargs='?', default="", 
@@ -337,7 +333,7 @@ def main():
         elif args.method == "sky":
             timer = threading.Thread(target=Countdown, args=(time.time(), float(t)))
             timer.start()
-            LaunchSKY(target, thread, t)
+            LaunchSTELLAR(target, thread, t)
             timer.join()
         elif args.method == "cfreq":
             if get_cookie(target):

@@ -1,10 +1,15 @@
 import threading, socket, datetime, random
-import ssl, cloudscraper, httpx, sys
-import requests, time
+import ssl, cloudscraper, httpx, sys, socks
+import requests, time, os, sys
 from colorama import Fore
+import undetected_chromedriver as webdriver
 from urllib.parse import urlparse
 from requests.cookies import RequestsCookieJar
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(current_dir, 'resources', 'ua.txt') 
+with open(file_path, 'r') as file:
+    ua = file.read().split("\n")
 #get
 def get_target(url):
     url = url.rstrip()
@@ -38,7 +43,7 @@ def get_proxylist(type):
 def get_proxies():
     global proxies
     if not os.path.exists("./proxy.txt"):
-        stdout.write(Fore.MAGENTA+" [*]"+Fore.WHITE+" You Need Proxy File ( ./proxy.txt )\n")
+        sys.stdout.write(Fore.MAGENTA+" [*]"+Fore.WHITE+" You Need Proxy File ( ./proxy.txt )\n")
         return False
     proxies = open("./proxy.txt", 'r').read().split('\n')
     return True

@@ -120,7 +120,6 @@ def hex():
             time.sleep(5)
     else:
         logging.error("Gagal terhubung ke server setelah beberapa percobaan.")
-        return  # Keluar dari fungsi jika gagal terhubung
 
     try:
         l = struct.unpack('>I', s.recv(4))[0]

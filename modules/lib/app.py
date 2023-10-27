@@ -136,13 +136,15 @@ def hex():
 
 def StartTitle(nametools):
     global ipAddress
+    saved_username, saved_pass = check_login_file()
     if not check_text(ipAddress):
         CheckInternet()
     
     clear_terminal()
     print(logo)
-    print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print(Fore.MAGENTA + " [!] " + Fore.RESET + "Public IP : " + ipAddress)
+    print(Fore.MAGENTA + " [!] " + Fore.RESET + "Username : " + saved_username)
+    print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print()
 
 def check_text(text):
@@ -154,7 +156,7 @@ def DisplayMenu(menu_items):
     print(("-"*22)+f"{Fore.MAGENTA}[{Fore.RESET}Menu{Fore.MAGENTA}]{Fore.RESET}"+("-"*22))
     print("|") 
     indexX = 0
-    for index, item in enumerate(menu_items, start=1):
+    for item in enumerate(menu_items, start=1):
         if not item:
             print("|")
             #print("|   ["+("-"*19)+f"{Back.MAGENTA+Fore.BLACK} ⊙{Fore.RESET}﹏{Fore.BLACK}⊙ {Fore.RESET+Back.RESET}"+("-"*19)+"]")

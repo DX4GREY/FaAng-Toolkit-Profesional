@@ -235,6 +235,7 @@ def start():
         start() 
         
 def main():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     parser = argparse.ArgumentParser(description=desc(), usage="faang [-l4] [method] [target] [thread] [time]\n   or: faang [-l7] [method] [target] [thread] [time]",
                                      prog="faang")
     parser.add_argument("method", type=str, nargs='?', default="", 

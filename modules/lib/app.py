@@ -16,7 +16,7 @@ message_log = f"{Fore.MAGENTA} [*] {Fore.RESET}Entering..."
 loadingg = LoadingThread(message_log, 'default')
 ########
 ########
-LOGIN_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
+LOGIN_FILE = os.path.expanduser("~/.log") #os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
 def clear_terminal():
     # Menggunakan perintah 'cls' di Windows atau 'clear' di sistem operasi lain (Linux/Mac)
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -35,7 +35,7 @@ def check_login_file():
 def write_login_file(username, password):
     with open(LOGIN_FILE, "w") as f:
         f.write(username + "\n")
-        f.write(password + "\n")
+        f.write(password)
 def login():
     global loadingg
     url = "http://haiehsianhakah.000webhostapp.com/api/login.php"

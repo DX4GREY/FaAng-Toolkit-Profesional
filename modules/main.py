@@ -13,7 +13,7 @@ from colorama import Fore
 
 if __name__ == '__main__':
 	try:
-		if platform.system == "Linux":
+		if platform.system == "GNU/Linux":
 			if os.geteuid() == 0:
 				main()
 			else:
@@ -21,5 +21,5 @@ if __name__ == '__main__':
 		else:
 			main()
 	except KeyboardInterrupt:
-		print(f"{Fore.BLUE}[*]{Fore.RESET} Exiting...") 
+		print(f"{Fore.RED}[*]{Fore.RESET} Exiting...") 
 		sys.exit(1)

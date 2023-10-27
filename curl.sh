@@ -24,6 +24,7 @@ install_linux() {
 
 detect_platform() {
     platform=$(uname -o)
+    echo -e "[*] Start installation on $platform"
     case $platform in
         "Android")
             install_termux
@@ -32,7 +33,7 @@ detect_platform() {
             install_linux
             ;;
         *)
-            echo "Unsupported platform: $platform"
+            echo "[*] Unsupported platform: $platform"
             ;;
     esac
 }

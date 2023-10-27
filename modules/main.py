@@ -9,6 +9,10 @@
 # Legal atau tidaknya tergantung kalian yang menggunakan
 
 from lib.app import *
+from colorama import Fore
 
 if __name__ == '__main__':
-    main()
+	try:
+	    main()
+	except KeyboardInterrupt:
+		print(f"{Fore.BLUE}[0]{Fore.RESET} Exiting...") 

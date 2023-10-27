@@ -1,20 +1,23 @@
 #!/bin/bash
 pathName="faang"
 mainFile="main.py"
+optDir="opt"
 
 doTermux() {
+	mkdir -p $PREFIX/$optDir
 	rm -rf $PREFIX/bin/$pathName
-	mkdir -p $PREFIX/share/$pathName
-	cp -r -f modules/* $PREFIX/share/$pathName
-	chmod +x $PREFIX/share/$pathName/$mainFile
-	ln -s $PREFIX/share/$pathName/$mainFile $PREFIX/bin/$pathName
+	mkdir -p $PREFIX/$optDir/$pathName
+	cp -r -f modules/* $PREFIX/$optDir/$pathName
+	chmod +x $PREFIX/$optDir/$pathName/$mainFile
+	ln -s $PREFIX/$optDir/$pathName/$mainFile $PREFIX/bin/$pathName
 }
 doGnuLinux() {
+	sudo mkdir -p /usr/$optDir
 	sudo rm -rf /usr/local/bin/$pathName
-	sudo mkdir -p /usr/share/$pathName
-	sudo cp -r -f modules/* /usr/share/$pathName
-	sudo chmod +x /usr/share/$pathName/*
-	sudo ln -s /usr/share/$pathName/$mainFile /usr/local/bin/$pathName
+	sudo mkdir -p /usr/$optDir/$pathName
+	sudo cp -r -f modules/* /usr/$optDir/$pathName
+	sudo chmod +x /usr/$optDir/$pathName/*
+	sudo ln -s /usr/$optDir/$pathName/$mainFile /usr/local/bin/$pathName
 }
 installRequirements() {
 	echo -n "[*] Checking python if installed..."

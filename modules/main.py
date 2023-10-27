@@ -1,5 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/python
-#!/usr/bin/python
+#!/bin/python
 
 # Copyright (c) Dx4 2023
 
@@ -13,7 +12,7 @@ from colorama import Fore
 
 if __name__ == '__main__':
 	try:
-	    main()
+		main()
 	except KeyboardInterrupt:
-		sys.exit(1)
 		print(f"{Fore.BLUE}[0]{Fore.RESET} Exiting...") 
+		sys.exit(1)

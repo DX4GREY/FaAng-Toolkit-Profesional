@@ -1,3 +1,4 @@
+#!/bin/python
 from colorama import Fore
 
 wrap = 60

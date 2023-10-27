@@ -1,3 +1,5 @@
+#!/bin/python
+
 import threading, socket, datetime, random
 import ssl, cloudscraper, httpx, sys, socks
 import requests, time, os, sys

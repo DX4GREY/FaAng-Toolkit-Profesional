@@ -1,3 +1,4 @@
+#!/bin/python
 import time
 import threading
 import sys

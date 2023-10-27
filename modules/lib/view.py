@@ -1,3 +1,4 @@
+#!/bin/python
 import threading, time, sys, datetime, os
 from lib.app import *
 from lib.func import *

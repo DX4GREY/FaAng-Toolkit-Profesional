@@ -21,5 +21,5 @@ if __name__ == '__main__':
 		else:
 			main()
 	except KeyboardInterrupt:
-		print(f"{Fore.RED}[*]{Fore.RESET} Exiting...") 
+		print(f"\n{Fore.RED}[*]{Fore.RESET} Exiting...") 
 		sys.exit(1)

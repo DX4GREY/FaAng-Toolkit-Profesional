@@ -142,7 +142,8 @@ def StartTitle(nametools):
     clear_terminal()
     print(logo)
     print(Fore.MAGENTA + " [!] " + Fore.RESET + "Public IP : " + ipAddress)
-    print(Fore.MAGENTA + " [!] " + Fore.RESET + "Username : " + saved_username)
+    if not saved_username is None:
+        print(Fore.MAGENTA + " [!] " + Fore.RESET + "Username : " + saved_username)
     print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print()
 

@@ -40,13 +40,14 @@ def check_login_file():
         pass
     return None
 
-def write_login_file(username, email, password, verified=False):
+def write_login_file(username, email, password, verified=False, db_token):
     with open(LOGIN_FILE, "w") as f:
         json.dump({
             "username": username,
             "email": email,
             "password": password,
-            "verified": verified
+            "verified": verified,
+            "db_token", db_token
         }, f)
 
 def login():
@@ -95,7 +96,7 @@ def login():
                 if sucLog:
                     print(f"{Fore.GREEN} [*] {Fore.RESET}Welcome hackers {username}!")
                     time.sleep(1)
-                write_login_file(username, email, password, user_resp.json().get("verified"))
+                write_login_file(username, email, password, user_resp.json().get("verified"), id_token)
                 start()
             else:
                 raise Exception(f"DB error: {user_resp.text}")

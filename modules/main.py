@@ -6,9 +6,6 @@
 # The FaAng Toolkit was published by Dx4 under MIT Licence
 
 # Legal atau tidaknya tergantung kalian yang menggunakan
-#!/bin/python
-
-# Copyright (c) Dx4 2023
 
 from lib.app import main
 import sys, platform, os

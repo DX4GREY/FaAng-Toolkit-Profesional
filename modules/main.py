@@ -18,7 +18,7 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
 		print(f"\n {Fore.RED}[*]{Fore.RESET} Killing all processes...")
 		time.sleep(1)
-		print(f" {Fore.MAGENTA}[*]{Fore.RESET} Have a nice day Hackers!")
-		time.sleep(3)
 		os.system('cls' if os.name == 'nt' else 'clear')
+		print(f" {Fore.MAGENTA}[*]{Fore.RESET} Have a nice day, Hackers!")
 		os._exit(1)
+		

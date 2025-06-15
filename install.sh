@@ -31,7 +31,7 @@ installRequirements() {
 	fi
 	
 	echo -e "[*] Installing dependencies..."
-	pip install -r requirements.txt
+	pip install --break-system-packages -r requirements.txt
 	echo -e "[*] Done. just run : $pathName"
 }
 

@@ -2,9 +2,9 @@ repo="FaAng-Toolkit-Profesional"
 username="dx4grey"
 
 install_termux() {
-    pkg update
-    pkg upgrade
-    pkg install git
+    pkg update -y
+    pkg upgrade -y
+    pkg install git -y
     git clone https://github.com/$username/$repo
     cd $repo
     bash install.sh
@@ -12,9 +12,8 @@ install_termux() {
     rm -rf $repo
 }
 install_linux() {
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install git
+    sudo apt-get update -y
+    sudo apt-get install git -y
     git clone https://github.com/$username/$repo
     cd $repo
     bash install.sh

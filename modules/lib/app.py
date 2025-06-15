@@ -8,6 +8,12 @@ import socket, zlib, base64, struct, time, logging
 from lib.func import *
 from lib.view import *
 from lib.text_string import menus, logos, desc
+import firebase_admin, json
+
+FIREBASE_API_KEY = "AIzaSyA6SygBl0TKczLLQ6nfyxNVrMnJw-dMOyc"
+FIREBASE_SIGNIN_URL = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_API_KEY}"
+FIREBASE_DB_URL = "https://direct-login-firebase-default-rtdb.asia-southeast1.firebasedatabase.app"
+
 
 logo = logos()
 
@@ -16,76 +22,94 @@ message_log = f"{Fore.MAGENTA} [*] {Fore.RESET}Entering..."
 loadingg = LoadingThread(message_log, 'default')
 ########
 ########
-LOGIN_FILE = os.path.expanduser("~/.log") #os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
+LOGIN_FILE = os.path.expanduser("~/.faang_logdetails.json") #os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
 def clear_terminal():
     # Menggunakan perintah 'cls' di Windows atau 'clear' di sistem operasi lain (Linux/Mac)
     os.system('cls' if os.name == 'nt' else 'clear')
+
 def check_login_file():
     try:
         with open(LOGIN_FILE, "r") as f:
-            login_data = f.readlines()
-            if len(login_data) == 2:
-                username = login_data[0].strip()
-                password = login_data[1].strip()
-                return username, password
-    except FileNotFoundError:
+            data = json.load(f)
+            username = data.get("username")
+            email = data.get("email")
+            password = data.get("password")
+            verified = data.get("verified", False)
+            return data
+    except (FileNotFoundError, json.JSONDecodeError):
         pass
-    return None, None
+    return None
 
-def write_login_file(username, password):
+def write_login_file(username, email, password, verified=False):
     with open(LOGIN_FILE, "w") as f:
-        f.write(username + "\n")
-        f.write(password)
+        json.dump({
+            "username": username,
+            "email": email,
+            "password": password,
+            "verified": verified
+        }, f)
+
 def login():
     global loadingg
-    url = "http://haiehsianhakah.000webhostapp.com/api/login.php"
-    saved_username, saved_password = check_login_file()
+    saved_username = check_login_file().get("username")
+    saved_email = check_login_file().get("email")
+    saved_password = check_login_file().get("password")
     sucLog = ""
-    if saved_username and saved_password:
-        username = saved_username
+    if saved_email and saved_password:
+        email = saved_email
         password = saved_password
     else:
-        StartTitle("Login Script")
-        username = input(f"{Fore.MAGENTA} [*] {Fore.RESET}Username: ")
+        StartTitle("Login Credentials")
+        email = input(f"{Fore.MAGENTA} [*] {Fore.RESET}Email: ")
         password = getpass.getpass(f"{Fore.MAGENTA} [*] {Fore.RESET}Password: ")
         sucLog = "1"
+
     payload = {
-        "username": username,
-        "password": password
+        "email": email,
+        "password": password,
+        "returnSecureToken": True
     }
-    if not loadingg.is_run():
-        loadingg = LoadingThread(message_log, 'default')
-        loadingg.start()
-    response = requests.post(url, data=payload, stream=True, timeout=15)
-    if response.status_code == 200:
-        data = response.json()
-        if data["status"] == "success":
-            loadingg.stop()
-            loadingg.join()
-            if sucLog:
-                print(f"{Fore.GREEN} [*] {Fore.RESET}Login success!")  
-                time.sleep(1)
-            write_login_file(username, password)
-            start() 
-            
-        elif data["status"] == "error":
-            loadingg.stop()
-            loadingg.join()
-            print(f"{Fore.RED} [*] {Fore.RESET}Login failed. ", data["message"])
-            time.sleep(1) 
-            login() 
-        else:
-            loadingg.stop()
-            loadingg.join()
-            print(f"{Fore.RED} [*] {Fore.RESET}Invalid response")
-            time.sleep(1) 
-            login() 
-            
-    else:
+
+    try:
+        if not loadingg.is_run():
+            loadingg = LoadingThread(message_log, 'default')
+            loadingg.start()
+
+        response = requests.post(FIREBASE_SIGNIN_URL, json=payload, timeout=15)
         loadingg.stop()
         loadingg.join()
-        print(f"{Fore.RED} [*] {Fore.RESET}Request failed")
-        login() 
+
+        if response.status_code == 200:
+            data = response.json()
+            uid = data["localId"]
+            id_token = data["idToken"]
+
+            # 🔥 Ambil username dari database
+            user_url = f"{FIREBASE_DB_URL}/users/{uid}.json?auth={id_token}"
+            user_resp = requests.get(user_url, timeout=10)
+
+            if user_resp.status_code == 200:
+                username = user_resp.json().get("name")
+                if not username:
+                    raise Exception("Username not found in database.")
+                if sucLog:
+                    print(f"{Fore.GREEN} [*] {Fore.RESET}Welcome hackers {username}!")
+                    time.sleep(1)
+                write_login_file(username, email, password, user_resp.json().get("verified"))
+                start()
+            else:
+                raise Exception(f"DB error: {user_resp.text}")
+        else:
+            error = response.json().get("error", {}).get("message", "Unknown error")
+            raise Exception(error)
+
+    except Exception as e:
+        if loadingg.is_run():
+            loadingg.stop()
+            loadingg.join()
+        print(f"{Fore.RED} [!] {Fore.RESET}Login failed: {e}")
+        time.sleep(1)
+        login()
              
 def CheckInternet():
     global ipAddress
@@ -135,7 +159,7 @@ def hex():
 
 def StartTitle(nametools):
     global ipAddress
-    saved_username, saved_pass = check_login_file()
+    saved_username = check_login_file().get("username")
     if not check_text(ipAddress):
         CheckInternet()
     
@@ -143,7 +167,7 @@ def StartTitle(nametools):
     print(logo)
     print(Fore.MAGENTA + " [!] " + Fore.RESET + "Public IP : " + ipAddress)
     if not saved_username is None:
-        print(Fore.MAGENTA + " [!] " + Fore.RESET + "Username : " + saved_username)
+        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Username : {saved_username}{'(✓)' if check_login_file().get('verified') else ''}")
     print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print()
 

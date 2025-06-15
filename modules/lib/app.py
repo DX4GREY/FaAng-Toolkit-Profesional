@@ -7,7 +7,7 @@ import subprocess, argparse, time, requests
 import socket, zlib, base64, struct, time, logging
 from lib.func import *
 from lib.view import *
-from lib.text_string import menus, logos, desc
+from lib.text_string import menus, logos, desc, LOGIN_FILE
 import firebase_admin, json
 
 FIREBASE_API_KEY = "AIzaSyA6SygBl0TKczLLQ6nfyxNVrMnJw-dMOyc"
@@ -22,7 +22,6 @@ message_log = f"{Fore.MAGENTA} [*] {Fore.RESET}Entering..."
 loadingg = LoadingThread(message_log, 'default')
 ########
 ########
-LOGIN_FILE = os.path.expanduser("~/.faang_logdetails.json") #os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
 def clear_terminal():
     # Menggunakan perintah 'cls' di Windows atau 'clear' di sistem operasi lain (Linux/Mac)
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -164,7 +163,7 @@ def StartTitle(nametools):
     print(logo)
     print(Fore.MAGENTA + " [!] " + Fore.RESET + "Public IP : " + ipAddress)
     if not saved_username is None:
-        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Username : {saved_username} ({Fore.GREEN}{'Verified User' if check_login_file().get('verified') else ''}{Fore.RESET})")
+        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Username : {saved_username} ({Fore.GREEN}{'Verified User' if check_login_file().get('verified') else f'{Fore.RED}Not Verified'}{Fore.RESET})")
     print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print()
 

@@ -164,7 +164,7 @@ def StartTitle(nametools):
     print(logo)
     print(Fore.MAGENTA + " [!] " + Fore.RESET + "Public IP : " + ipAddress)
     if not saved_username is None:
-        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Username : {saved_username}{'(✓)' if check_login_file().get('verified') else ''}")
+        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Username : {saved_username} ({Fore.GREEN}{'Verified User' if check_login_file().get('verified') else ''}{Fore.RESET})")
     print(Fore.MAGENTA + " [~] " + Fore.RESET + nametools)
     print()
 

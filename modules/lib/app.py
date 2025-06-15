@@ -31,23 +31,19 @@ def check_login_file():
     try:
         with open(LOGIN_FILE, "r") as f:
             data = json.load(f)
-            username = data.get("username")
-            email = data.get("email")
-            password = data.get("password")
-            verified = data.get("verified", False)
             return data
     except (FileNotFoundError, json.JSONDecodeError):
         pass
     return None
 
-def write_login_file(username, email, password, verified=False, db_token):
+def write_login_file(username, email, password, verified=False, token="-"):
     with open(LOGIN_FILE, "w") as f:
         json.dump({
             "username": username,
             "email": email,
             "password": password,
             "verified": verified,
-            "db_token", db_token
+            "db_token": token
         }, f)
 
 def login():
@@ -201,7 +197,6 @@ def DisplayMenu(menu_items):
 
 def start():
     StartTitle("Dx4 DDoS Tools")
-    print() 
     
     DisplayMenu(menus())
     print() 

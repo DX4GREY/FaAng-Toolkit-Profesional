@@ -1,34 +1,41 @@
 #!/bin/python
 from colorama import Fore
+import os, json, requests
 
+LOGIN_FILE = os.path.expanduser("~/.faang_logdetails.json") #os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log') 
+
+def check_login_file():
+    try:
+        with open(LOGIN_FILE, "r") as f:
+            data = json.load(f)
+            return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    return None
+    
 wrap = 60
 
 def desc():
     help_desc = "The features within this menu offer a range of powerful and diverse DDoS methods, designed to test and identify vulnerabilities and resilience of networks and servers. This menu encompasses attacks on both layer 4 and layer 7, including various attack types such as UDP, TCP, HTTP, and more. These attack methods enable users to simulate real-world scenarios, providing deeper insights into the defense capabilities of their systems against such attacks. Ranging from request-based attacks to protocol-based ones, this menu covers a broad spectrum of options to identify and mitigate DDoS risks effectively."
     return help_desc
-    
+
 def menus():
-    menu = [
-        "UDP       layer4 => UDP Attack", 
-        "TCP       layer4 => TCP Attack", 
-        "FiveM     layer4 => Fivem Server Attack", 
-        "MC        layer4 => Minecraft Bedrock or Java Server Attack", 
-        "", 
-        "GET       layer7 => 'Requests GET' Attack", 
-        "POS       layer7 => 'Requests POST' Attack", 
-        "SOC       layer7 => Socket Attack" , 
-        "HTTP2     layer7 => HTTP 2.0 Request Attack", 
-        "SPOOF     layer7 => HTTP Spoof Socket Attack  ", 
-        "HEAD     layer7 => Head Request Attack", 
-        "SKY      layer7 => Sky method", 
-        "CFREQ    layer7 => Bypass CF UAM, CAPTCHA, BFM (request)", 
-        "CFSOC    layer7 => Bypass CF UAM, CAPTCHA, BFM (socket)", 
-        "CFB      layer7 => Bypass CF Attack", 
-        "SLOW     layer7 => Slowloris method attack", 
-        "MBP      layer7 => Send large megabyte payload method attack", 
-        "RUDY     layer7 => Send large content for attack"
-    ]
-    return menu
+    FIREBASE_URL = f"https://direct-login-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/menu.json?auth={check_login_file().get('db_token')}"
+
+    try:
+        response = requests.get(FIREBASE_URL)
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list):
+                return data
+            else:
+                print("Data menu bukan list:", data)
+        else:
+            print("Gagal ambil data:", response.status_code)
+    except Exception as e:
+        print("Error:", e)
+    
+    return []  # fallback kalau gagal
 
 def word_wrapper(text, line_length):
     words = text.split()

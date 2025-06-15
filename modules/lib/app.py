@@ -47,9 +47,12 @@ def write_login_file(username, email, password, verified=False, token="-"):
 
 def login():
     global loadingg
-    saved_username = check_login_file().get("username")
-    saved_email = check_login_file().get("email")
-    saved_password = check_login_file().get("password")
+    saved_email=None
+    saved_password=None
+    if check_login_file():
+        saved_username = check_login_file().get("username")
+        saved_email = check_login_file().get("email")
+        saved_password = check_login_file().get("password")
     sucLog = ""
     if saved_email and saved_password:
         email = saved_email
@@ -155,7 +158,9 @@ def hex():
 
 def StartTitle(nametools):
     global ipAddress
-    saved_username = check_login_file().get("username")
+    saved_username = None
+    if check_login_file():
+        saved_username = check_login_file().get("username")
     if not check_text(ipAddress):
         CheckInternet()
     
@@ -209,10 +214,10 @@ def start():
         StartTitle(f"Exit") 
         os.remove(LOGIN_FILE)
         print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Logged Out")
-        sys.exit()
+        os._exit(127)
     elif indexSelect.upper() == "0":
         StartTitle(f"Exit") 
-        sys.exit()
+        os._exit(0)
     elif indexSelect.upper() == "1":
         StartTitle(f"Layer4 {Back.MAGENTA}UDP{Back.RESET}")
         DdosUDP()

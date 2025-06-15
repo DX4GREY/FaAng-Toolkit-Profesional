@@ -207,9 +207,10 @@ def start():
     indexSelect = input(Fore.MAGENTA+" [?] "+Fore.RESET+"Select : ")
     if indexSelect.upper() == "00":
         StartTitle(f"About This Script") 
-        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Script Creator : {Fore.RED}D{Fore.YELLOW}x{Fore.GREEN}4")
+        print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Script Creator : {Fore.GREEN}Dx4")
         print(Fore.MAGENTA + " [!] " + Fore.RESET + f"Support : F4Z")
         print(Fore.YELLOW+ " [!] " + Fore.RESET + f"Thanks to : Github, {Fore.BLUE}Allah{Fore.RESET}, Microsoft, Python, F4Z") 
+        os._exit(127)
     elif indexSelect.upper() == "000":
         StartTitle(f"Exit") 
         os.remove(LOGIN_FILE)

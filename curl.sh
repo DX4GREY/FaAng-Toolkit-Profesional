@@ -4,7 +4,7 @@ username="dx4grey"
 install_termux() {
     pkg update -y
     pkg upgrade -y
-    pkg install git -y
+    pkg install git python python3 -y
     git clone https://github.com/$username/$repo
     cd $repo
     bash install.sh
@@ -13,7 +13,7 @@ install_termux() {
 }
 install_linux() {
     sudo apt-get update -y
-    sudo apt-get install git -y
+    sudo apt-get install git python3 python3-pip -y
     git clone https://github.com/$username/$repo
     cd $repo
     bash install.sh
